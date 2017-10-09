@@ -19,7 +19,6 @@ a:focus {
   text-shadow: -1px -1px 2px rgba(100,100,100,0.5);
 }
 
-
 /*  */
 
 
@@ -27,7 +26,7 @@ a:focus {
   position: relative;
   width: 900px;
   padding: 40px;
-  margin: 20px auto;
+  margin: auto;
 
   -webkit-box-sizing: border-box;
   -moz-box-sizing:    border-box;

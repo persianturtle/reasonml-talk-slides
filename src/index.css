@@ -1,7 +1,7 @@
-body {
+html, body {
   font-family: 'PT Sans', sans-serif;
-  min-height: 740px;
-  background: rgb(215, 215, 215);
   background: radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+  overflow: hidden;
+  height: 100%;
   margin: 0;
 }
