@@ -22,8 +22,13 @@ type state = {
 
 let component = ReasonReact.reducerComponent "App";
 
-let process slides =>
-  Array.map (fun (attributes, content) => <Slide attributes> content </Slide>) slides;
+let process slides active =>
+  Array.mapi
+    (
+      fun index (attributes, content) =>
+        <Slide attributes active=(active == index)> content </Slide>
+    )
+    slides;
 
 let calculateCanvas (slides: array (attributes, ReasonReact.reactElement)) active => {
   let (attributes, _) = slides.(active);
@@ -105,12 +110,11 @@ let make ::slides ::config _children => {
     let perspective = float_of_int config.perspective /. self.state.scale;
     let transform = makeTransformString self.state.canvas;
     <section
-      id="impress"
       style=(
         ReactDOMRe.Style.make
           position::"absolute"
           transformOrigin::"top left"
-          transition::"all 750ms ease-in-out 250ms"
+          transition::"all 750ms ease-in-out"
           transformStyle::"preserve-3d"
           top::"50%"
           left::"50%"
@@ -138,7 +142,7 @@ let make ::slides ::config _children => {
                 ::transform
                 ()
           }
-          (process slides)
+          (process slides self.state.active)
       )
     </section>
   }

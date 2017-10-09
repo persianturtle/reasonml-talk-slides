@@ -2,7 +2,7 @@ open Types;
 
 let component = ReasonReact.statelessComponent "Slide";
 
-let make ::attributes children => {
+let make ::attributes ::active children => {
   ...component,
   render: fun _self => {
     let transform =
@@ -33,9 +33,14 @@ let make ::attributes children => {
     ReasonReact.createDomElement
       "div"
       props::{
-        "className": "slide step",
+        "className": "slide",
         "style":
-          ReactDOMRe.Style.make position::"absolute" ::transform transformStyle::"preserve-3d" ()
+          ReactDOMRe.Style.make
+            position::"absolute"
+            ::transform
+            transformStyle::"preserve-3d"
+            opacity::(active ? "1" : "0.3")
+            ()
       }
       children
   }
