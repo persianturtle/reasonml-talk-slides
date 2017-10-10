@@ -39,7 +39,7 @@ let make ::attributes ::active children => {
             position::"absolute"
             ::transform
             transformStyle::"preserve-3d"
-            opacity::(active ? "1" : "0.3")
+            opacity::(active ? "1" : "0")
             ()
       }
       children

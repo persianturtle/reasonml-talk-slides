@@ -12,7 +12,7 @@ external innerHeight : int = "" [@@bs.val "window.innerHeight"];
 open Types;
 
 type action =
-  | KeyPress int;
+  | KeyDown string;
 
 type state = {
   active: int,
@@ -82,25 +82,40 @@ let make ::slides ::config _children => {
   },
   reducer: fun action state =>
     switch action {
-    | KeyPress charCode =>
-      if (charCode == 32 /* space */) {
+    | KeyDown key =>
+      if (key == " ") {
+        let active = state.active >= Array.length slides - 1 ? 0 : state.active + 1;
+        let canvas = calculateCanvas slides active;
+        let scale = calculateScale slides active config;
+        ReasonReact.Update {canvas, scale, active}
+      } else if (
+        key == "ArrowLeft"
+      ) {
+        let active = state.active == 0 ? Array.length slides - 1 : state.active - 1;
+        let canvas = calculateCanvas slides active;
+        let scale = calculateScale slides active config;
+        ReasonReact.Update {canvas, scale, active}
+      } else if (
+        key == "ArrowRight"
+      ) {
         let active = state.active >= Array.length slides - 1 ? 0 : state.active + 1;
         let canvas = calculateCanvas slides active;
         let scale = calculateScale slides active config;
         ReasonReact.Update {canvas, scale, active}
       } else {
+        Js.log key;
         ReasonReact.NoUpdate
       }
     },
   didMount: fun self => {
     addEventListener
       document
-      "keypress"
+      "keydown"
       (
         self.reduce (
           fun event => {
             ReactEventRe.Keyboard.preventDefault event;
-            KeyPress (ReactEventRe.Keyboard.charCode event)
+            KeyDown (ReactEventRe.Keyboard.key event)
           }
         )
       );
@@ -114,7 +129,7 @@ let make ::slides ::config _children => {
         ReactDOMRe.Style.make
           position::"absolute"
           transformOrigin::"top left"
-          transition::"all 750ms ease-in-out"
+          transition::"all 750ms ease-in-out 125ms"
           transformStyle::"preserve-3d"
           top::"50%"
           left::"50%"

@@ -21,8 +21,20 @@ let slides: slides = [|
     <h1> (ReasonReact.stringToElement "third") </h1>
   ),
   (
-    {translate: {x: 2000, y: 1500, z: 0}, rotate: {x: 0, y: 0, z: 200}, scale: 2},
+    {translate: {x: 2000, y: (-2500), z: 0}, rotate: {x: 0, y: 0, z: 0}, scale: 1},
     <h1> (ReasonReact.stringToElement "fourth") </h1>
+  ),
+  (
+    {translate: {x: 2000, y: (-2500), z: (-10000)}, rotate: {x: 0, y: 0, z: 0}, scale: 1},
+    <h1> (ReasonReact.stringToElement "fifth") </h1>
+  ),
+  (
+    {translate: {x: 3000, y: (-2500), z: (-10000)}, rotate: {x: 0, y: 0, z: 0}, scale: 1},
+    <h1> (ReasonReact.stringToElement "sixth") </h1>
+  ),
+  (
+    {translate: {x: 4000, y: (-2500), z: 10000}, rotate: {x: 0, y: 0, z: 180}, scale: 1},
+    <h1> (ReasonReact.stringToElement "seventh") </h1>
   )
 |];
 
