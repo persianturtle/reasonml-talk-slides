@@ -1,20 +1,14 @@
 [%bs.raw {|require('./app.css')|}];
 
-external document : Dom.document = "document" [@@bs.val];
-
-external addEventListener : Dom.document => string => (ReactEventRe.synthetic 'a => unit) => unit =
-  "addEventListener" [@@bs.send];
-
-external innerWidth : int = "" [@@bs.val "window.innerWidth"];
-
-external innerHeight : int = "" [@@bs.val "window.innerHeight"];
-
 open Types;
 
 type action =
-  | KeyDown string;
+  | KeyDown string
+  | AllowTransitioning
+  | Resize;
 
 type state = {
+  transitioning: ref bool,
   active: int,
   scale: float,
   canvas
@@ -22,11 +16,11 @@ type state = {
 
 let component = ReasonReact.reducerComponent "App";
 
-let process slides active =>
+let process state slides =>
   Array.mapi
     (
       fun index (attributes, content) =>
-        <Slide attributes active=(active == index)> content </Slide>
+        <Slide attributes active=(state.active == index)> content </Slide>
     )
     slides;
 
@@ -49,7 +43,7 @@ let calculateScale (slides: array (attributes, ReasonReact.reactElement)) active
     h > w ? w : h
   };
   let (attributes, _) = slides.(active);
-  1.0 /. float_of_int attributes.scale *. initial
+  1.0 /. attributes.scale *. initial
 };
 
 let makeTransformString (canvas: canvas) =>
@@ -78,34 +72,46 @@ let make ::slides ::config _children => {
   initialState: fun () => {
     let canvas = calculateCanvas slides 0;
     let scale = calculateScale slides 0 config;
-    {active: 0, scale, canvas}
+    {transitioning: ref false, active: 0, scale, canvas}
   },
   reducer: fun action state =>
     switch action {
     | KeyDown key =>
-      if (key == " ") {
-        let active = state.active >= Array.length slides - 1 ? 0 : state.active + 1;
-        let canvas = calculateCanvas slides active;
-        let scale = calculateScale slides active config;
-        ReasonReact.Update {canvas, scale, active}
-      } else if (
-        key == "ArrowLeft"
-      ) {
-        let active = state.active == 0 ? Array.length slides - 1 : state.active - 1;
-        let canvas = calculateCanvas slides active;
-        let scale = calculateScale slides active config;
-        ReasonReact.Update {canvas, scale, active}
-      } else if (
-        key == "ArrowRight"
-      ) {
-        let active = state.active >= Array.length slides - 1 ? 0 : state.active + 1;
-        let canvas = calculateCanvas slides active;
-        let scale = calculateScale slides active config;
-        ReasonReact.Update {canvas, scale, active}
+      if (not !state.transitioning) {
+        if (key == " ") {
+          let active = state.active >= Array.length slides - 1 ? 0 : state.active + 1;
+          let canvas = calculateCanvas slides active;
+          let scale = calculateScale slides active config;
+          state.transitioning := true;
+          ReasonReact.Update {...state, canvas, scale, active}
+        } else if (
+          key == "ArrowLeft"
+        ) {
+          let active = state.active == 0 ? Array.length slides - 1 : state.active - 1;
+          let canvas = calculateCanvas slides active;
+          let scale = calculateScale slides active config;
+          state.transitioning := true;
+          ReasonReact.Update {...state, canvas, scale, active}
+        } else if (
+          key == "ArrowRight"
+        ) {
+          let active = state.active >= Array.length slides - 1 ? 0 : state.active + 1;
+          let canvas = calculateCanvas slides active;
+          let scale = calculateScale slides active config;
+          state.transitioning := true;
+          ReasonReact.Update {...state, canvas, scale, active}
+        } else {
+          ReasonReact.NoUpdate
+        }
       } else {
-        Js.log key;
         ReasonReact.NoUpdate
       }
+    | AllowTransitioning =>
+      state.transitioning := false;
+      ReasonReact.NoUpdate
+    | Resize =>
+      let scale = calculateScale slides 0 config;
+      ReasonReact.Update {...state, scale}
     },
   didMount: fun self => {
     addEventListener
@@ -115,10 +121,17 @@ let make ::slides ::config _children => {
         self.reduce (
           fun event => {
             ReactEventRe.Keyboard.preventDefault event;
+            if !self.state.transitioning {
+              ()
+            } else {
+              Js.Global.setTimeout (self.reduce (fun _ => AllowTransitioning)) 1250;
+              ()
+            };
             KeyDown (ReactEventRe.Keyboard.key event)
           }
         )
       );
+    addEventListener window "resize" (self.reduce (fun _event => Resize));
     ReasonReact.NoUpdate
   },
   render: fun self => {
@@ -136,7 +149,7 @@ let make ::slides ::config _children => {
           transform::(
             "perspective("
             ^ string_of_float perspective
-            ^ "px)"
+            ^ "0px)"
             ^ " "
             ^ "scale("
             ^ string_of_float self.state.scale
@@ -157,7 +170,7 @@ let make ::slides ::config _children => {
                 ::transform
                 ()
           }
-          (process slides self.state.active)
+          (process self.state slides)
       )
     </section>
   }

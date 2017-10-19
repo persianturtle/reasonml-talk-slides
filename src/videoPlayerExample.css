@@ -1,0 +1,43 @@
+.Example1 {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.Example1 video {
+  display: block;
+}
+
+.Example1 .controls {
+  position: absolute; bottom: 0; right: 0;
+  display: flex; align-items: center;
+  background-color: #fec831;
+  height: 80px;
+  z-index: 2;
+}
+
+.Example1 .controls a {
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  width: 100px;
+  line-height: 80px;
+}
+
+.Example1 .modal {
+  transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1);
+  transform: translateY(100%);
+  position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  margin: auto;
+  z-index: 1;
+}
+
+.Example1 .modal.active {
+  transform: translateY(0%);
+}
+
+.Example1 table tr td:last-of-type {
+  padding-left: 30px;
+}

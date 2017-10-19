@@ -4,7 +4,7 @@ let component = ReasonReact.statelessComponent "Slide";
 
 let make ::attributes ::active children => {
   ...component,
-  render: fun _self => {
+  render: fun self => {
     let transform =
       "translate(-50%,-50%) "
       ^ "translate3d("
@@ -28,12 +28,12 @@ let make ::attributes ::active children => {
       ^ "deg)"
       ^ " "
       ^ "scale("
-      ^ string_of_int attributes.scale
-      ^ ")";
+      ^ string_of_float attributes.scale
+      ^ "0)";
     ReasonReact.createDomElement
       "div"
       props::{
-        "className": "slide",
+        "className": "slide " ^ (active ? "active" : ""),
         "style":
           ReactDOMRe.Style.make
             position::"absolute"

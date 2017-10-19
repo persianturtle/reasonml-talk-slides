@@ -39,5 +39,28 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!-- <script>
+      setTimeout(() => {
+        document.querySelectorAll('.slide').forEach(slide => {
+          slide.querySelectorAll('li').forEach(li => {
+            li.style.opacity = 0
+            li.style.transition = 'opacity 0.3s cubic-bezier(0, 0, 0.2, 1)'
+          })
+          
+          setInterval(() => {
+            if (slide.classList.contains('active')) {
+              setTimeout(() => {
+                slide.querySelectorAll('li').forEach((li, index) => {
+                  setTimeout(() => {
+                    li.style.opacity = 1
+                  }, 1000 * index)
+                })
+              }, 1000)
+            }
+          }, 500)
+        })
+      }, 1000)
+    </script> -->
   </body>
 </html>

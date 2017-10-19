@@ -1,12 +1,22 @@
 .slide {
   transition: opacity 1s ease-in-out 250ms;
+
   font-size: 30px;
   line-height: 36px;
   letter-spacing: -1px;
+
   position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
   width: 900px;
   height: 700px;
+
   padding: 40px 60px;
+
   box-sizing: border-box;
 
   background-color: white;
@@ -15,6 +25,32 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
 
   color: rgb(102, 102, 102);
+}
 
-  opacity: 0.3;
+h1 {
+  color: #db4d3f;
+}
+
+a {
+  text-decoration: none;
+  color: royalblue;
+}
+
+img {
+  max-width: 100%;
+}
+
+.source {
+  font-size: 24px;
+  line-height: 30px;
+  color: rgba(102, 102, 102, 0.75);
+}
+
+.center {
+  text-align: center;
+}
+
+.center p {
+  max-width: 80%;
+  margin: 0 auto 30px;
 }

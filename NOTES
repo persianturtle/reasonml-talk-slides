@@ -1,0 +1,79 @@
+why doesn't ML catch on
+  - theory one: too hard for average programmer?
+  - 
+
+type system makes sure that various aspects of your program work properly with a fairly small amount of effort from the developer
+
+Enemy of good code / correctness is not dynamic guarantees
+it's complexity
+
+doing clever things with types / type system can make things 
+
+don't be puritanical about purity
+https://www.youtube.com/watch?v=-J8YyfrSwTk
+46:26
+
+avoiding side effects is good
+purity is easier to reason about
+it's not always easier to reason about
+
+
+
+
+My journey into FP
+
+- Writing correct, obscure code is almost as bad as writing incorrect code
+
+If you force yourself to be pure, and by forcing yourself to be pure you've introduced more complexity, then you sort of lost.
+
+
+
+Tony Hoare - billion dollar mistake
+https://www.youtube.com/watch?v=kZ1P8cHN3pY&t=36s 15:00
+
+null vs option = false promise vs correct promise
+
+
+
+
+make illegal states unrepresentable
+
+
+
+type inference makes the code cleaner
+
+
+
+I'm going to speak from the point of view of a typical JavaScript developer, like myself.  I'm 
+
+let the compiler do the work that your brain used to do
+
+What is a binding?
+
+
+Some context on me
+
+depreciation messages
+
+
+
+talk about how the bucklescript compiler has itself been compiled into javascript, so you can compile reason/ocaml in the browser.
+
+refactorability
+
+Flow / TypeScript are the gateway experiences
+
+type annotations cannot get stale,  comments can
+
+
+refmt feels good.
+https://www.youtube.com/watch?v=LZj_1qVURL0 11:09
+
+talk about preventing default based on keycode
+
+
+ENV=production
+DATABASE=nerlynx
+USER=nerlynx
+PASSWORD=secret
+HOST=localhost
