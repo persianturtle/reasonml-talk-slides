@@ -1,0 +1,50 @@
+.VideoPlayer {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.VideoPlayer > div {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.VideoPlayer video {
+  display: block;
+}
+
+.VideoPlayer .controls {
+  display: flex; align-items: center;
+  background-color: #fec831;
+  width: 200px;
+  height: 80px;
+  z-index: 2;
+  margin-left: auto;
+}
+
+.VideoPlayer .controls a {
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  width: 100px;
+  line-height: 80px;
+}
+
+.VideoPlayer .modal {
+  transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1);
+  transform: translateY(100%);
+  position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  margin: auto;
+  z-index: 1;
+}
+
+.VideoPlayer .modal.active {
+  transform: translateY(0%);
+}
+
+.VideoPlayer table tr td:last-of-type {
+  padding-left: 30px;
+}

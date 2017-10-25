@@ -1,0 +1,35 @@
+Introduce myself
+Give a brief outline of the talk to give a reason to pay attention
+What is reason? Reason is a new syntax for the OCaml language.  Hmm...what's OCaml?
+Companies have a maintainiblity problem with JS codebases. Adding new feature breaks others.
+Take a few steps back and talk about Elm / Reason / PureScript
+ - why?  Maintainability.  Makes it easier to build complex applications.... like how ReactJS made it easier to reason about JS applications.
+ - Elm & PureScript were inspired by Haskell. Reason was inspired by OCaml....well, it is OCaml.  Take advantage of both JS & OCaml ecosystems.  Compile to native, etc.
+I love Elm.  Chose Reason because of it's reach. Future is probably going to be FP to JS.
+Okay, so Reason is a new syntax for the OCaml language.
+Let's look at some of that syntax.  Can you guess what is happening? Syntax cheat sheet.
+But it's also a set of tools.
+One of those tools is bucklescript.  Bucklescript takes OCaml and returns JS.  No runtime.  Elm has a runtime.  Also, Bucklescript compiled it's own compiler to JS so you can write ReasonML / OCaml in the browser and have it compile in realtime to JS.
+Another tool is the reason-cli, which is used for editor support.  Type annotations. Refmt.  Swigglies and errors.  Not required to use Reason.
+Okay, so why Reason?  How does it help solve our problem of maintainiblity?
+Types are one part, but OCaml offers several built-in features that make it easier to build correct software.
+
+these are .... depreciations...  types and guarantees...  fast compiler... you work in the editor more than compared with JS.
+
+add more here
+
+Facebook is using Reason in production on messenger.com
+
+Okay, so we know the problem we are trying to solve, and supposedly, Reason can help solve this problem. How hard is it to get started?
+
+What I'm about to show should feel quite familiar if you have ReactJS experience. For me, it didn't feel like I was writing a different language.  It felt like I was writing React.
+
+build steps and options
+
+go over Create React App code...
+
+take about a couple Reason specific stuff
+
+go over Stateful component... should feel familiar with Redux experience
+
+take about a couple Reason specific stuff including Redux related stuff
